@@ -6,11 +6,12 @@
 /*   By: tsaby <tsaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 10:35:03 by tsaby             #+#    #+#             */
-/*   Updated: 2024/11/24 12:09:40 by tsaby            ###   ########.fr       */
+/*   Updated: 2024/11/25 12:54:09 by tsaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 static size_t	ft_strlen(const char *str)
 {
@@ -54,27 +55,28 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	char	*tabjoin;
 	size_t	i;
 	size_t	j;
+	size_t len1;
+	size_t len2;
 
+	len1 = s1 ? ft_strlen(s1) : 0;
+	len2 = s2 ? ft_strlen(s2) : 0;
 	i = 0;
 	j = 0;
-	if (!s1 || !s2)
-		return (NULL);
-	tabjoin = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!tabjoin)
-		return (tabjoin);
-	while (s1[i])
-	{
-		tabjoin[i] = s1[i];
-		i++;
-	}
-	while (s2[j])
-	{
-		tabjoin[i + j] = s2[j];
-		j++;
-	}
-	tabjoin[i + j] = '\0';
-	return (tabjoin);
+	tabjoin = malloc(sizeof(char) * (len1 + len2 + 1));
+    while (i < len1)
+    {
+        tabjoin[i] = s1[i];
+        i++;
+    }
+    while (j < len2)
+    {
+        tabjoin[i + j] = s2[j];
+        j++;
+    }
+    tabjoin[i + j] = '\0';
+    return (tabjoin);
 }
+
 
 char	*ft_strdup(char *src)
 {
