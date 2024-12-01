@@ -6,7 +6,7 @@
 /*   By: tsaby <tsaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 10:35:29 by tsaby             #+#    #+#             */
-/*   Updated: 2024/11/25 11:11:32 by tsaby            ###   ########.fr       */
+/*   Updated: 2024/11/28 15:56:01 by tsaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
 char *get_next_line(int fd);
 char	*ft_substr(char const *s, unsigned int start, size_t len);

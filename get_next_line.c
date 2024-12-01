@@ -1,54 +1,49 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tsaby <tsaby@student.42lyon.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/28 16:47:56 by tsaby             #+#    #+#             */
+/*   Updated: 2024/11/28 17:53:34 by tsaby            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
-#include <stdio.h>
 
-char *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
-    char buffer[BUFFER_SIZE + 1];
-    ssize_t bytes_read;
-    static char *saved_data = NULL;
-    char *posnewline = NULL;
-    char *line;
+	static char	*scrap = NULL;
+	ssize_t		*nb_read;
+	char		*buff;
 
-    if (fd < 0 || BUFFER_SIZE <= 0)
-    {
-        return (NULL);
-    }
-    while ((bytes_read = read(fd, buffer, BUFFER_SIZE)) > 0)
-    {
-        buffer[bytes_read] = '\0'; // Terminer la chaîne lue
-        printf("Buffer read: %s\n", buffer); // Debug print
+	if (fd == -1 || BUFFER_SIZE < 1)
+	{
+		ft_str_free(&scrap);
+		return (NULL);
+	}
+	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buff)
+		return (NULL);
+	nb_read = read(fd, buff, BUFFER_SIZE);
+	if (nb_read == -1)
+	{
+		free(buff);
+		ft_str_free(&scrap);
+		return (NULL);
+	}
+	buff[(int)nb_read] = '\0';
+	if (nb_read == 0)
+		return ();
+	return ();
+}
 
-        char *temp = ft_strjoin(saved_data, buffer);  // Créer la nouvelle chaîne
-        if (!temp)  // Vérifier l'échec de malloc
-            return (NULL);
-        free(saved_data);  // Libérer l'ancienne mémoire de saved_data
-        saved_data = temp; // Réassigner à saved_data
-        printf("Saved data: %s\n", saved_data); // Debug print
-
-        // Vérifier la présence d'un '\n'
-        posnewline = ft_strchr(saved_data, '\n');
-        if (posnewline)
-        {
-            line = ft_substr(saved_data, 0, posnewline - saved_data + 1);
-            char *temp2 = ft_strdup(posnewline + 1); // Sauvegarder les données restantes
-            free(saved_data);
-            saved_data = temp2;
-            printf("Line: %s\n", line); // Debug print
-            return (line);
-        }
-    }
-
-    if (bytes_read < 0) // Erreur lors de la lecture
-        return (NULL);
-    if (saved_data && *saved_data) // Traiter les données restantes dans `saved_data` si la fin du fichier est atteinte
-    {
-        line = ft_strdup(saved_data);
-        free(saved_data);
-        saved_data = NULL;
-        printf("Line: %s\n", line); // Debug print
-        return (line);
-    }
-    free(saved_data);
-    saved_data = NULL;
-    return (NULL);
+void	ft_str_free(char **str)
+{
+	if (*str)
+	{
+		free(*str);
+		*str = NULL;
+	}
 }
