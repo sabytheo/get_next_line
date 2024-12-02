@@ -6,7 +6,7 @@
 /*   By: tsaby <tsaby@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 10:35:29 by tsaby             #+#    #+#             */
-/*   Updated: 2024/12/01 21:30:52 by tsaby            ###   ########.fr       */
+/*   Updated: 2024/12/02 09:59:58 by tsaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # endif
 
 char	*get_next_line(int fd);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strdup(char *str);
 void	ft_clean(char *str);
 int		ft_findchr(char *str);

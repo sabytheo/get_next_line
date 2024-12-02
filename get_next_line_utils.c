@@ -6,7 +6,7 @@
 /*   By: tsaby <tsaby@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 10:35:03 by tsaby             #+#    #+#             */
-/*   Updated: 2024/12/01 21:56:14 by tsaby            ###   ########.fr       */
+/*   Updated: 2024/12/02 10:04:49 by tsaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	i;
 	size_t	j;
@@ -36,7 +36,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		len++;
 	join = malloc(sizeof(char) * (ft_strlen(s1) + len + 1));
 	if (join == NULL)
-		return (free((void *)s1), NULL);
+		return (free(s1), NULL);
 	i = 0;
 	j = 0;
 	while (s1 && s1[i])
@@ -47,7 +47,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	while (s2 && j++ < len)
 		join[i + j - 1] = s2[j - 1];
 	join[i + j - 1] = 0;
-	free((void *)s1);
+	free(s1);
 	return (join);
 }
 
@@ -72,26 +72,6 @@ char	*ft_strdup(char *str)
 		i++;
 	}
 	dest[i] = 0;
-	return (dest);
-}
-
-char	*ft_stdest(char *src)
-{
-	char	*dest;
-	size_t	i;
-	size_t	srclen;
-
-	srclen = ft_strlen(src);
-	i = 0;
-	dest = (char *)malloc((srclen + 1) * sizeof(char));
-	if (!dest)
-		return (NULL);
-	while (src[i])
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
 	return (dest);
 }
 
