@@ -22,7 +22,7 @@ int main(int argc, char **argv)
     printf("Reading lines from file '%s':\n", argv[1]);
     while ((line = get_next_line(fd)))
     {
-        printf("Read line: %s", line);
+        printf("Read line: |%s|\n", line);
         free(line);
     }
     printf("Finished reading file.\n");

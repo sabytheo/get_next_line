@@ -6,7 +6,7 @@
 /*   By: tsaby <tsaby@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 16:47:56 by tsaby             #+#    #+#             */
-/*   Updated: 2024/11/28 17:53:34 by tsaby            ###   ########.fr       */
+/*   Updated: 2024/12/01 21:30:40 by tsaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,28 @@
 
 char	*get_next_line(int fd)
 {
-	static char	*scrap = NULL;
-	ssize_t		*nb_read;
-	char		*buff;
+	static char	buffer[BUFFER_SIZE + 1] = "\0";
+	int			bytes_read;
+	char		*line;
 
-	if (fd == -1 || BUFFER_SIZE < 1)
-	{
-		ft_str_free(&scrap);
+	bytes_read = 1;
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	}
-	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buff)
+	line = ft_strdup(buffer);
+	if (!line)
 		return (NULL);
-	nb_read = read(fd, buff, BUFFER_SIZE);
-	if (nb_read == -1)
+	while (bytes_read && ft_findchr(line) == 0)
 	{
-		free(buff);
-		ft_str_free(&scrap);
-		return (NULL);
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		if (bytes_read < 0)
+			return (free(line), NULL);
+		buffer[bytes_read] = '\0';
+		line = ft_strjoin(line, buffer);
+		if (!line)
+			return (NULL);
 	}
-	buff[(int)nb_read] = '\0';
-	if (nb_read == 0)
-		return ();
-	return ();
-}
-
-void	ft_str_free(char **str)
-{
-	if (*str)
-	{
-		free(*str);
-		*str = NULL;
-	}
+	ft_clean(buffer);
+	if (line[0] == 0)
+		return (free(line), NULL);
+	return (line);
 }
