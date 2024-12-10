@@ -6,7 +6,7 @@
 /*   By: tsaby <tsaby@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 10:35:03 by tsaby             #+#    #+#             */
-/*   Updated: 2024/12/02 10:04:49 by tsaby            ###   ########.fr       */
+/*   Updated: 2024/12/10 16:51:55 by tsaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ char	*ft_strjoin(char *s1, char *s2)
 	size_t	len;
 	char	*join;
 
+	i = 0;
+	j = 0;
 	len = 0;
 	while (s2[len] != '\n' && s2[len] != 0)
 		len++;
@@ -37,8 +39,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	join = malloc(sizeof(char) * (ft_strlen(s1) + len + 1));
 	if (join == NULL)
 		return (free(s1), NULL);
-	i = 0;
-	j = 0;
 	while (s1 && s1[i])
 	{
 		join[i] = s1[i];
